@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.movieapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".core.app.App"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher_movie"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_movie_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MovieApp">
+        <activity
+            android:name=".ui.main.seeAllMovies.SeeAllMovieActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.trailer.TrailerActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.main.movieDetails.MovieDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.start.StartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.start.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoggingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.home.MainActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
