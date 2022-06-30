@@ -1,6 +1,6 @@
 package com.example.movieapp.core.network.networkService
 
-import com.example.movieapp.core.model.response.main.account.addwatchList.FavoriteMoviesRespond
+import com.example.movieapp.core.model.response.main.account.favoriteMovies.FavoriteMoviesRespond
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET

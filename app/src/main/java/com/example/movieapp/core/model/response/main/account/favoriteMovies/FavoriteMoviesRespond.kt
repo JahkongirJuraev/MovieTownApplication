@@ -1,4 +1,4 @@
-package com.example.movieapp.core.model.response.main.account.addwatchList
+package com.example.movieapp.core.model.response.main.account.favoriteMovies
 
 import com.example.movieapp.core.model.response.main.home.latestMovies.MovieData
 

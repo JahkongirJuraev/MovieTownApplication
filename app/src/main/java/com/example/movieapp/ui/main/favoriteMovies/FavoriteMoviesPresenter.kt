@@ -1,7 +1,7 @@
 package com.example.movieapp.ui.main.favoriteMovies
 
 import com.example.movieapp.core.cache.AppCache
-import com.example.movieapp.core.model.response.main.account.addwatchList.FavoriteMoviesRespond
+import com.example.movieapp.core.model.response.main.account.favoriteMovies.FavoriteMoviesRespond
 import com.example.movieapp.core.network.ApiClientModule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

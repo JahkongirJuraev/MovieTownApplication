@@ -20,7 +20,7 @@ class App : Application() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        db = Room.databaseBuilder(this, RoomDB::class.java, "room_database.db").allowMainThreadQueries().build()
+        db = Room.databaseBuilder(applicationContext, RoomDB::class.java, "room_database.db").allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
 
     }

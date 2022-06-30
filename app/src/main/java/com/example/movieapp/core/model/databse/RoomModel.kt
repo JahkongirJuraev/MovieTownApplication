@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "room_database")
 data class RoomModel(
     @PrimaryKey val movieId:Int,
-    @ColumnInfo(name = "isFavorite") val isFavorite:Boolean
+    @ColumnInfo(name = "isFavorite", defaultValue = "false") val isFavorite:Boolean
 )
 {
 

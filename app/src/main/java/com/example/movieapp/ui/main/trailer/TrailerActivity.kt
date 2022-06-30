@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import com.example.movieapp.R
+import com.example.movieapp.core.extension.SetItemStatusBarColor
 import com.example.movieapp.core.utils.CONST
 import com.example.movieapp.databinding.ActivityTrailerBinding
 import com.example.movieapp.ui.base.BaseActivity
@@ -24,6 +26,8 @@ class TrailerActivity : YouTubeBaseActivity() {
         super.onCreate(p0)
         binding = ActivityTrailerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        SetItemStatusBarColor(getColor(R.color.black),false)
 
         intent.extras?.let {
             val link = it.getString(KEY_LINK)

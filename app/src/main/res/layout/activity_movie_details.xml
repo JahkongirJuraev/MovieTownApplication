@@ -52,10 +52,10 @@
                         android:src="#CFCFCF" />
 
                     <ProgressBar
-                        android:background="@drawable/progressbar_back"
                         android:id="@+id/progressBar"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:background="@drawable/progressbar_back"
                         android:indeterminateOnly="false"
                         android:progress="60"
                         android:progressDrawable="@drawable/circle"
@@ -66,14 +66,14 @@
                         android:id="@+id/progress_bar_text"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:gravity="center"
                         android:text="80%"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:gravity="center"
-                        app:layout_constraintTop_toTopOf="@id/progressBar"
                         app:layout_constraintBottom_toBottomOf="@id/progressBar"
+                        app:layout_constraintEnd_toEndOf="@id/progressBar"
                         app:layout_constraintStart_toStartOf="@id/progressBar"
-                        app:layout_constraintEnd_toEndOf="@id/progressBar"/>
+                        app:layout_constraintTop_toTopOf="@id/progressBar" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -139,14 +139,14 @@
 
             <ImageView
                 android:id="@+id/favorite_buttom"
-                android:clickable="true"
-                android:src="@drawable/favorite"
-                android:focusable="true"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:layout_constraintTop_toBottomOf="@id/movie_genre"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/favorite"
                 app:layout_constraintStart_toStartOf="@id/movie_genre"
-                android:layout_marginTop="20dp"/>
+                app:layout_constraintTop_toBottomOf="@id/movie_genre" />
 
             <TextView
                 android:id="@+id/production_companies"
@@ -179,24 +179,24 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/youtube_video"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintTop_toBottomOf="@id/movie_overview"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="5:3"
                 android:layout_margin="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
                 app:cardUseCompatPadding="true"
-                app:cardCornerRadius="20dp">
+                app:layout_constraintDimensionRatio="5:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_overview">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/open_trailer"
-                    android:focusable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:clickable="true"
-                    android:layout_height="match_parent">
+                    android:focusable="true">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/youtube_video_image"
@@ -206,12 +206,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:clickable="true"
-                        android:focusable="true"
                         android:id="@+id/play_youtube_video"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:src="@drawable/youtubelogo" />
 
                 </RelativeLayout>
@@ -221,16 +221,16 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/youtube_video"
-                app:layout_constraintBottom_toTopOf="@id/similar_movies"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="20dp"
-                android:textSize="20sp"
-                android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="Similar Movies"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/similar_movies"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/youtube_video" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/similar_movies"
@@ -239,17 +239,16 @@
                 android:layout_marginTop="10dp"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/youtube_video"
                 tools:itemCount="3"
-                tools:listitem="@layout/item_inner_recyclerview"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                tools:listitem="@layout/item_inner_recyclerview" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.core.widget.NestedScrollView>

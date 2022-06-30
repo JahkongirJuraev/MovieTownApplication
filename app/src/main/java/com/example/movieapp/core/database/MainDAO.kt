@@ -19,4 +19,5 @@ interface MainDAO {
     @Query("SELECT isFavorite FROM room_database WHERE movieId=:id")
     fun getMovieInfo(id:Int):Boolean
 
+
 }

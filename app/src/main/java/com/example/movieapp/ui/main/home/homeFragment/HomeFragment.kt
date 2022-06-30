@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.core.adapter.HomeAdapter
+import com.example.movieapp.core.app.App
+import com.example.movieapp.core.model.databse.RoomModel
 import com.example.movieapp.core.model.response.main.home.BaseData
 import com.example.movieapp.databinding.FragmentHomeBinding
 import com.example.movieapp.ui.base.BaseFragment
@@ -41,6 +44,10 @@ class HomeFragment : BaseFragment(), HomeMVP.View {
         homeMVP = HomePresenter(this)
         loadData()
         setViewState()
+
+        App.db?.let {
+            it.getMainDao().insert(RoomModel(15,true))
+        }
 
         onRecyclerViewClicked()
 

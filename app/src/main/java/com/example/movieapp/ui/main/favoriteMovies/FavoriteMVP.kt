@@ -1,7 +1,6 @@
 package com.example.movieapp.ui.main.favoriteMovies
 
-import com.example.movieapp.core.model.response.main.account.addwatchList.FavoriteMoviesRespond
-import com.example.movieapp.core.model.response.main.movieData.movieDetails.MovieDetailsResponse
+import com.example.movieapp.core.model.response.main.account.favoriteMovies.FavoriteMoviesRespond
 
 interface FavoriteMVP {
 

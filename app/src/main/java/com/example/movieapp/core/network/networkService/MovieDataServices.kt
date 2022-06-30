@@ -1,6 +1,7 @@
 package com.example.movieapp.core.network.networkService
 
 import com.example.movieapp.core.model.request.markAsFavoriteRequest.MarkAsFavoriteRequest
+import com.example.movieapp.core.model.response.main.account.favoriteMovies.FavoriteMoviesRespond
 import com.example.movieapp.core.model.response.main.movieData.markAsFavorite.MarkAsFavoriteResponse
 import com.example.movieapp.core.model.response.main.movieData.movieDetails.MovieDetailsResponse
 import com.example.movieapp.core.model.response.main.movieData.movieImages.MovieImagesResponse
@@ -47,5 +48,21 @@ interface MovieDataServices {
         @Query("session_id") sessionId: String,
         @Body markAsFavoriteRequest: MarkAsFavoriteRequest
     ):Single<Response<MarkAsFavoriteResponse?>>
+
+    @HTTP(method = "POST", path = "/3/account/{account_id}/favorite", hasBody = true)
+    //@GET("/3/account/{account_id}/favorite")
+    fun markAsNotFavorite(
+        @Path("account_id") accountId:Int,
+        @Query("api_key") apiKey: String,
+        @Query("session_id") sessionId: String,
+        @Body markAsFavoriteRequest: MarkAsFavoriteRequest
+    ):Single<Response<MarkAsFavoriteResponse?>>
+
+    @GET("/3/account/{account_id}/favorite/movies")
+    fun getFavoriteMovies(
+        @Path("account_id") accountId: Int,
+        @Query("api_key") apiKey: String,
+        @Query("session_id") sessionId: String
+    ):Single<Response<FavoriteMoviesRespond?>>
 
 }

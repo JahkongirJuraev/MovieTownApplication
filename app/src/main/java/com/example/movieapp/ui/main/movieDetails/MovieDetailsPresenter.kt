@@ -2,6 +2,7 @@ package com.example.movieapp.ui.main.movieDetails
 
 import com.example.movieapp.core.cache.AppCache
 import com.example.movieapp.core.model.request.markAsFavoriteRequest.MarkAsFavoriteRequest
+import com.example.movieapp.core.model.response.main.account.favoriteMovies.FavoriteMoviesRespond
 import com.example.movieapp.core.model.response.main.movieData.markAsFavorite.MarkAsFavoriteResponse
 import com.example.movieapp.core.model.response.main.movieData.movieDetails.MovieDetailsResponse
 import com.example.movieapp.core.model.response.main.movieTrailer.MovieTrailerResponse
@@ -122,6 +123,58 @@ class MovieDetailsPresenter(val view: MovieDetailsMVP.View) : MovieDetailsMVP.Pr
 
             })
         compositeDisposable.add(disposable)
+    }
+
+    override fun markAsNotFavorite(movieId: Int) {
+        val body = MarkAsFavoriteRequest(false, media_id = movieId, "movie")
+        var disposable = movieDetailsServer.markAsFavorite(
+            accountId = AppCache.appCache!!.getAccountId(),
+            apiKey = ApiClientModule.apiKey,
+            sessionId = AppCache.appCache!!.getSessionId(),
+            markAsFavoriteRequest = body
+        ).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribeWith(
+            object : DisposableSingleObserver<Response<MarkAsFavoriteResponse?>>() {
+                override fun onSuccess(t: Response<MarkAsFavoriteResponse?>) {
+                    if (t.isSuccessful) {
+                        t.body()?.let {
+                            view.getFavoriteResult(true)
+                        }
+                    } else {
+                        view.getFavoriteResult(false)
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    view.onError(e.message.toString())
+                }
+
+            })
+        compositeDisposable.add(disposable)
+    }
+
+    override fun loadFavoriteMovies() {
+        var disposable = movieDetailsServer.getFavoriteMovies(
+            accountId = AppCache.appCache!!.getMovieId(),
+            apiKey = ApiClientModule.apiKey,
+            sessionId = AppCache.appCache!!.getSessionId()
+        ).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribeWith(
+            object : DisposableSingleObserver<Response<FavoriteMoviesRespond?>>() {
+                override fun onSuccess(t: Response<FavoriteMoviesRespond?>) {
+                    if (t.isSuccessful) {
+                        t.body()?.let {
+                            view.getFavoriteMoviesList(it.results)
+                        }
+                    } else {
+                        view.onError(t.message().toString())
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    view.onError(e.message.toString())
+                }
+
+            })
+        compositeDisposable.addAll(disposable)
     }
 
 

@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieapp.R
 import com.example.movieapp.core.adapter.SearchAdapter
-import com.example.movieapp.core.model.response.main.account.addwatchList.FavoriteMoviesRespond
+import com.example.movieapp.core.model.response.main.account.favoriteMovies.FavoriteMoviesRespond
 import com.example.movieapp.databinding.FragmentFavoriteBinding
 import com.example.movieapp.ui.base.BaseFragment
 import com.example.movieapp.ui.main.movieDetails.MovieDetailsActivity

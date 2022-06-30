@@ -4,13 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.movieapp.R
 import com.example.movieapp.core.adapter.SimilarMoviesAdapter
 import com.example.movieapp.core.app.App
-import com.example.movieapp.core.cache.AppCache
 import com.example.movieapp.core.database.RoomDB
 import com.example.movieapp.core.model.databse.RoomModel
+import com.example.movieapp.core.model.response.main.home.latestMovies.MovieData
 import com.example.movieapp.core.model.response.main.movieData.movieDetails.MovieDetailsResponse
 import com.example.movieapp.core.model.response.main.movieTrailer.MovieTrailerResponse
 import com.example.movieapp.core.model.response.main.similarMovies.SimilarMoviesResponse
@@ -19,24 +21,31 @@ import com.example.movieapp.ui.base.BaseActivity
 import com.example.movieapp.ui.main.home.homeFragment.HomeFragment
 import com.example.movieapp.ui.main.trailer.TrailerActivity
 import com.google.android.material.snackbar.Snackbar
-import java.util.*
 
 class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
 
     companion object {
         const val MOVIE_DATA = "Movie_Data"
-        const val KEY_LINK="video_link"
+        const val KEY_LINK = "video_link"
     }
 
-    var databse:RoomDB?=null
+    var databse: RoomDB? = null
 
-    lateinit var movieTrailerLink:String
+    lateinit var movieTrailerLink: String
+
+    var isFavorite:Boolean?=null
+
+    lateinit var movieDetailsResponse: MovieDetailsResponse
+
+    lateinit var favoriteMoviesListRespond: List<MovieData>
 
     lateinit var data: MovieDetailsResponse
 
     lateinit var presenter: MovieDetailsMVP.Presenter
 
     lateinit var binding: ActivityMovieDetailsBinding
+
+    var movieId:Int?=null
 
     private var productionCompanies: String = "Production companies: "
     lateinit var productionCountries: String
@@ -62,16 +71,8 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
     override fun onCreated(savedInstanceState: Bundle?) {
         //databse= RoomDB.getInstance(this)
 
-        binding.youtubeVideo.isClickable=true
-        binding.playYoutubeVideo.isClickable=true
-
-        var date=Date()
-
-        App.db?.let {
-            it.getMainDao().insert(RoomModel(date.time.toInt(),false))
-            it.getMainDao().insert(RoomModel(555,false))
-
-        }
+        binding.youtubeVideo.isClickable = true
+        binding.playYoutubeVideo.isClickable = true
 
         val intent = intent
         val id = intent.getIntExtra(MOVIE_DATA, 0)
@@ -82,34 +83,86 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
         presenter.loadSimilarMovies(id)
         similarMoviesClicked()
 
+        binding.favoriteButtom.isClickable=false
+
+        movieId=id
+
+    }
+
+    private fun setOnClickListenerActions(id: Int) {
         binding.openTrailer.setOnClickListener {
-            binding.youtubeVideo.isClickable=false
-            binding.playYoutubeVideo.isClickable=false
+            binding.youtubeVideo.isClickable = false
+            binding.playYoutubeVideo.isClickable = false
             presenter.loadMovieTrailer(id)
         }
 
         binding.playYoutubeVideo.setOnClickListener {
-            binding.youtubeVideo.isClickable=false
-            binding.playYoutubeVideo.isClickable=false
+            binding.youtubeVideo.isClickable = false
+            binding.playYoutubeVideo.isClickable = false
             presenter.loadMovieTrailer(id)
         }
 
+
+
         binding.favoriteButtom.setOnClickListener {
-            presenter.markAsFavorite(id)
+
+            if (isFavorite!!) {
+                presenter.markAsNotFavorite(id)
+                //presenter.loadFavoriteMovies()
+                binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_false))
+                isFavorite=false
+            } else {
+                presenter.markAsFavorite(id)
+                //presenter.loadFavoriteMovies()
+                binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_ture))
+                isFavorite=true
+            }
+
+
+            /*run lit@{
+                favoriteMoviesListRespond.forEach{
+                    if (it.id == movieDetailsResponse.id) {
+                        presenter.markAsFavorite(id)
+                        binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_false))
+                        return@lit
+                    }
+                }
+
+                favoriteMoviesListRespond.forEach{
+                    if (it.id != movieDetailsResponse.id) {
+                        presenter.markAsFavorite(id)
+                        binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_ture))
+                        return@lit
+                    }
+                }
+            }*/
         }
+
+        /*run lit@{
+            favoriteMoviesListRespond.forEach{
+                if (it.id == movieDetailsResponse.id) {
+                    binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_ture))
+                    isFavorite=true
+                    return@lit
+                } else {
+                    binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_false))
+                    isFavorite=false
+                }
+            }
+        }*/
     }
 
     fun similarMoviesClicked() {
 
 
-            similarMoviesAdapter.onItemClicked={
+        similarMoviesAdapter.onItemClicked = {
 
-                val intent = Intent(this,MovieDetailsActivity::class.java)
-                intent.putExtra(HomeFragment.MOVIE_DATA, it.id)
-                //val id = intent.getIntExtra(MOVIE_DATA, 0)
-                //AppCache.appCache!!.setMovieId(it.id)
-                startActivity(intent)
-            }
+            val intent = Intent(this, MovieDetailsActivity::class.java)
+            intent.putExtra(HomeFragment.MOVIE_DATA, it.id)
+            //val id = intent.getIntExtra(MOVIE_DATA, 0)
+            //AppCache.appCache!!.setMovieId(it.id)
+            startActivity(intent)
+        }
 
 
     }
@@ -127,26 +180,56 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
     }
 
     override fun getMovieTrailer(movieTrailerResponse: MovieTrailerResponse) {
-        if (movieTrailerResponse.results.size > 0) {
+        if (movieTrailerResponse.results.isNotEmpty()) {
             movieTrailerLink = movieTrailerResponse.results[0].key
-                var intent = Intent(this, TrailerActivity::class.java)
-                intent.putExtra(KEY_LINK, movieTrailerLink)
-                startActivity(intent)
+            var intent = Intent(this, TrailerActivity::class.java)
+            intent.putExtra(KEY_LINK, movieTrailerLink)
+            startActivity(intent)
         } else {
-            binding.youtubeVideo.visibility=View.GONE
+            binding.youtubeVideo.visibility = View.GONE
         }
 
+    }
+
+    override fun getFavoriteMoviesList(favoriteMoviesListRespond: List<MovieData>) {
+
+        this.favoriteMoviesListRespond=favoriteMoviesListRespond
+
+        run lit@{
+            favoriteMoviesListRespond.forEach{
+                if (it.id == movieDetailsResponse.id) {
+                    binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_ture))
+                    isFavorite=true
+                    return@lit
+                } else {
+                    isFavorite=false
+                    binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_false))
+                }
+            }
+        }
+        binding.favoriteButtom.isClickable=true
+
+        setOnClickListenerActions(movieId!!)
     }
 
     override fun getFavoriteResult(success: Boolean) {
         if (success) {
-            Toast.makeText(applicationContext, "Marked as favorite successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                "Marked as favorite successfully",
+                Toast.LENGTH_SHORT
+            ).show()
         } else {
-            Toast.makeText(applicationContext,"Not marked, error",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Not marked, error", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun showData(movieDetails: MovieDetailsResponse) {
+
+        movieDetailsResponse = movieDetails
+
+
+        presenter.loadFavoriteMovies()
 
         Glide.with(binding.movieImage)
             .load("https://image.tmdb.org/t/p/w500" + movieDetails.poster_path)
@@ -192,13 +275,12 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
             .load("https://image.tmdb.org/t/p/w500" + movieDetails.backdrop_path)
             .into(binding.youtubeVideoImage)
 
-
     }
 
     override fun setMovieDetails(movieDetails: MovieDetailsResponse) {
         data = movieDetails
-        binding.progressBar.progress= (data.vote_average*10).toInt()
-        binding.progressBarText.text=((data.vote_average*10).toInt()).toString()+"%"
+        binding.progressBar.progress = (data.vote_average * 10).toInt()
+        binding.progressBarText.text = ((data.vote_average * 10).toInt()).toString() + "%"
         showData(data)
     }
 
