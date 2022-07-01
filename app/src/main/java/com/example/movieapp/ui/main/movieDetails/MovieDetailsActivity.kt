@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.core.adapter.SimilarMoviesAdapter
-import com.example.movieapp.core.app.App
-import com.example.movieapp.core.database.RoomDB
-import com.example.movieapp.core.model.databse.RoomModel
 import com.example.movieapp.core.model.response.main.home.latestMovies.MovieData
 import com.example.movieapp.core.model.response.main.movieData.movieDetails.MovieDetailsResponse
 import com.example.movieapp.core.model.response.main.movieTrailer.MovieTrailerResponse
@@ -28,9 +25,6 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
         const val MOVIE_DATA = "Movie_Data"
         const val KEY_LINK = "video_link"
     }
-
-    var databse: RoomDB? = null
-
     lateinit var movieTrailerLink: String
 
     var isFavorite:Boolean?=null
@@ -118,38 +112,8 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
                 isFavorite=true
             }
 
-
-            /*run lit@{
-                favoriteMoviesListRespond.forEach{
-                    if (it.id == movieDetailsResponse.id) {
-                        presenter.markAsFavorite(id)
-                        binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_false))
-                        return@lit
-                    }
-                }
-
-                favoriteMoviesListRespond.forEach{
-                    if (it.id != movieDetailsResponse.id) {
-                        presenter.markAsFavorite(id)
-                        binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_ture))
-                        return@lit
-                    }
-                }
-            }*/
         }
 
-        /*run lit@{
-            favoriteMoviesListRespond.forEach{
-                if (it.id == movieDetailsResponse.id) {
-                    binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_ture))
-                    isFavorite=true
-                    return@lit
-                } else {
-                    binding.favoriteButtom.setColorFilter(ContextCompat.getColor(applicationContext,R.color.favorite_false))
-                    isFavorite=false
-                }
-            }
-        }*/
     }
 
     fun similarMoviesClicked() {

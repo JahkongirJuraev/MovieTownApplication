@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
@@ -42,6 +43,9 @@ class MyAccountFragment : BaseFragment(), MyAccountMVP.View {
 
         binding.logOut.setOnClickListener {
             presenter.deleteSession()
+            binding.logOut.isClickable = false
+            binding.logOut.isFocusable=false
+            Toast.makeText(context,"Please wait, logging out",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -75,6 +79,9 @@ class MyAccountFragment : BaseFragment(), MyAccountMVP.View {
     }
 
     override fun isSessionDeleted(sessionDeleted: Boolean) {
+
+        binding.logOut.isFocusable = true
+        binding.logOut.isClickable=true
 
             if (sessionDeleted) {
                 var intent = Intent(requireActivity(), LoggingActivity::class.java)
