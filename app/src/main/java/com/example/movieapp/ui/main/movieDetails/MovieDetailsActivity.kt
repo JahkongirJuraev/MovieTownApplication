@@ -47,15 +47,6 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
 
     lateinit var similarMoviesAdapter: SimilarMoviesAdapter
 
-    /* override fun onCreate(savedInstanceState: Bundle?) {
-         super.onCreate(savedInstanceState)
-         setContentView(R.layout.activity_delete)
-         val intent = intent
-         val id = intent.getIntExtra(MOVIE_DATA, 0)
-
-     }*/
-
-
     override fun getView(): View? {
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
 
@@ -63,8 +54,6 @@ class MovieDetailsActivity : BaseActivity(), MovieDetailsMVP.View {
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
-        //databse= RoomDB.getInstance(this)
-
         binding.youtubeVideo.isClickable = true
         binding.playYoutubeVideo.isClickable = true
 

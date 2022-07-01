@@ -39,21 +39,6 @@ class HomePresenter(val view: HomeMVP.View) : HomeMVP.Presenter {
 
         compositeDisposable.add(disposable)
     }
-
-    /* val disposable = loginServices.createRequestToken(ApiClientModule.apiKey)
-         .observeOn(AndroidSchedulers.mainThread())
-         .subscribeOn(Schedulers.io())
-         .subscribeWith(object :
-             DisposableSingleObserver<Response<CreateRequestTokenResponse?>>() {
-             override fun onSuccess(t: Response<CreateRequestTokenResponse?>) {
-                 if (t.isSuccessful) {
-                     t.body()?.let {
-                         AppCache.appCache?.setAccessToken(it.request_token)
-                         view.createRequestToken(it.request_token)
-                     }
-                 } else {
-                     view.onError(t.message())
-                 }*/
     override fun loadTopRated() {
         val disposable = movieService.getTopRatedMoviesRequest(ApiClientModule.apiKey,1)
             .observeOn(AndroidSchedulers.mainThread())

@@ -1,7 +1,6 @@
 package com.example.movieapp.ui.main.home.homeFragment
 
 import com.example.movieapp.core.model.response.main.home.BaseData
-import com.example.movieapp.core.model.response.main.home.latestMovies.MovieData
 
 interface HomeMVP {
 
@@ -10,11 +9,6 @@ interface HomeMVP {
 
         fun setMovieData(data:BaseData)
 
-        /*fun setTopRated()
-
-        fun setTrailers()
-
-        fun setTheater()*/
 
         fun onError(message:String)
     }

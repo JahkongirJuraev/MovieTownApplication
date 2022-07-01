@@ -2,7 +2,6 @@ package com.example.movieapp.ui.main.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieapp.R
@@ -21,8 +20,6 @@ class MainActivity : BaseActivity() {
     override fun onCreated(savedInstanceState: Bundle?) {
         val navController = Navigation.findNavController(this, R.id.fragment)
         binding.btnNavigation.setupWithNavController(navController)
-
-    //    window.statusBarColor = ContextCompat.getColor(this, R.color.black)
-    }
+ }
 
 }

@@ -24,10 +24,6 @@ class FavoriteFragmentt : BaseFragment(), FavoriteMVP.View {
         const val KEY_LINK="video_link"
     }
 
-    /*FragmentTransaction tr = getFragmentManager().beginTransaction();
-tr.replace(R.id.fragment_layout, instanceFragment);
-tr.commit()*/
-
     private lateinit var binding: FragmentFavoriteBinding
     override fun createView(
         inflater: LayoutInflater,

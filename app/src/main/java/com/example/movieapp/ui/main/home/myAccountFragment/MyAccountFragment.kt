@@ -93,7 +93,3 @@ class MyAccountFragment : BaseFragment(), MyAccountMVP.View {
 
 
 }
-/*
-Intent i = new Intent(getActivity(), DetailActivity.class);
-startActivity(i);
-((Activity) getActivity()).overridePendingTransition(0, 0);*/

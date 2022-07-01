@@ -1,15 +1,10 @@
 package com.example.movieapp.ui.main.trailer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.View
 import com.example.movieapp.R
 import com.example.movieapp.core.extension.SetItemStatusBarColor
 import com.example.movieapp.core.utils.CONST
 import com.example.movieapp.databinding.ActivityTrailerBinding
-import com.example.movieapp.ui.base.BaseActivity
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -45,7 +40,6 @@ class TrailerActivity : YouTubeBaseActivity() {
                     p0: YouTubePlayer.Provider?,
                     p1: YouTubeInitializationResult?
                 ) {
-                    TODO("Not yet implemented")
                 }
 
             })

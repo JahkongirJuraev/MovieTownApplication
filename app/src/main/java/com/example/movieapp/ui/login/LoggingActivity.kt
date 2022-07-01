@@ -53,9 +53,6 @@ class LoggingActivity : BaseActivity(), LoginMVP.View {
         }
 
         binding.singUpBox.setOnClickListener {
-            /*Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);*/
             val url = "https://www.themoviedb.org/signup"
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
@@ -74,18 +71,16 @@ class LoggingActivity : BaseActivity(), LoginMVP.View {
     }
 
     override fun createRequestToken(token: String) {
-        /*binding.responseView.text=token*/
+
         presenter.createSessionWithLogin(username = username, password = password)
     }
 
     override fun createSession(sessionId: String) {
-        /*binding.responseView.text=sessionId*/
-
         presenter.getAccountDetails()
     }
 
     override fun createSessionWithLogin(response: CreateRequestTokenResponse) {
-        /*binding.responseView.text=response.toString()*/
+
         presenter.createSession()
     }
 
@@ -104,6 +99,6 @@ class LoggingActivity : BaseActivity(), LoginMVP.View {
         binding.singUpBox.isClickable=true
         binding.loginButton.visibility=View.VISIBLE
         binding.loginText.visibility=View.INVISIBLE
-        /* binding.errorView.text=message*/
+
     }
 }

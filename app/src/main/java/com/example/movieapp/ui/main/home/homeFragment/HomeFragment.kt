@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.core.adapter.HomeAdapter
 import com.example.movieapp.core.model.response.main.home.BaseData
 import com.example.movieapp.databinding.FragmentHomeBinding
 import com.example.movieapp.ui.base.BaseFragment
-import com.example.movieapp.ui.main.seeAllMovies.SeeAllMovieActivity
 import com.example.movieapp.ui.main.movieDetails.MovieDetailsActivity
+import com.example.movieapp.ui.main.seeAllMovies.SeeAllMovieActivity
 import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : BaseFragment(), HomeMVP.View {
@@ -102,13 +101,6 @@ class HomeFragment : BaseFragment(), HomeMVP.View {
 
     }
 
-    /*fun onSliderClicked() {
-        sliderAdapter.onItemClicked={movieData ->
-            val intent = Intent(requireActivity(), DeleteActivity::class.java)
-            intent.putExtra(MOVIE_DATA, movieData.id)
-            startActivity(intent)
-        }
-    }*/
 
     fun setViewState() {
         binding.homeList.adapter = adapter
